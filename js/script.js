@@ -161,10 +161,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Counter animation
     const counters = document.querySelectorAll('.counter');
     
-    function startCounters() {
-        counters.forEach(counter => {
+    function startCounters(container) {
+        const countersInView = container ? container.querySelectorAll('.counter') : counters;
+        
+        countersInView.forEach(counter => {
+            // Reset counter text to 0 before starting animation
+            counter.textContent = '0';
+            
             const target = parseInt(counter.getAttribute('data-target'));
-            const duration = 2000; // animation duration in ms
+            const duration = 1500; // animation duration in ms
             const start = 0;
             const increment = target / (duration / 16); // 60fps
             
@@ -188,12 +193,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                startCounters();
-                statsObserver.disconnect(); // Only trigger once
+                // Start counters for this specific section that came into view
+                startCounters(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.2 });
 
+    // Observe both stats sections
     const statsSection = document.querySelector('.stats-section');
     const aboutStats = document.querySelector('.about-stats');
     
