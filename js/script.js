@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.querySelector('.contact-form');
     const timelineItems = document.querySelectorAll('.timeline-item');
     const projectCards = document.querySelectorAll('.project-card');
+    const skillCategories = document.querySelectorAll('.skill-category');
     const skillItems = document.querySelectorAll('.skills-list span');
     const fadeElements = document.querySelectorAll('.fade-in');
 
@@ -76,46 +77,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Animate elements on scroll
-    function animateOnScroll() {
-        const triggerBottom = window.innerHeight * 0.85;
+    // Set up Intersection Observer for animations
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
 
-        // Timeline items
-        timelineItems.forEach(item => {
-            const itemTop = item.getBoundingClientRect().top;
-            if (itemTop < triggerBottom) {
-                item.classList.add('show');
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                
+                // If it's a skill category, also animate its children
+                if (entry.target.classList.contains('skill-category')) {
+                    const skillSpans = entry.target.querySelectorAll('.skills-list span');
+                    skillSpans.forEach((span, index) => {
+                        setTimeout(() => {
+                            span.classList.add('visible');
+                        }, index * 50);
+                    });
+                }
+                
+                observer.unobserve(entry.target);
             }
         });
+    }, observerOptions);
 
-        // Fade in elements
-        fadeElements.forEach(el => {
-            const elTop = el.getBoundingClientRect().top;
-            if (elTop < triggerBottom) {
-                el.classList.add('show');
-            }
-        });
+    // Observe all fade-in elements
+    fadeElements.forEach(el => {
+        observer.observe(el);
+    });
 
-        // Project cards
-        projectCards.forEach((card, index) => {
-            const cardTop = card.getBoundingClientRect().top;
-            if (cardTop < triggerBottom) {
-                setTimeout(() => {
-                    card.classList.add('show');
-                }, index * 100);
-            }
-        });
-
-        // Skill items
-        skillItems.forEach((skill, index) => {
-            const skillTop = skill.getBoundingClientRect().top;
-            if (skillTop < triggerBottom) {
-                setTimeout(() => {
-                    skill.classList.add('show');
-                }, index * 50);
-            }
-        });
-    }
+    // Explicitly observe skill categories for better control
+    skillCategories.forEach(category => {
+        observer.observe(category);
+    });
 
     // Handle contact form submission
     if (contactForm) {
@@ -161,144 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Count up animation for numbers
-    function animateCounters() {
-        const counters = document.querySelectorAll('.counter');
-        
-        counters.forEach(counter => {
-            const target = +counter.getAttribute('data-target');
-            const countTo = target;
-            const duration = 2000; // Animation duration in ms
-            const startTime = performance.now();
-            
-            function updateCounter(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const easedProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-                const currentValue = Math.floor(easedProgress * countTo);
-                
-                counter.textContent = currentValue.toLocaleString();
-                
-                if (progress < 1) {
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    counter.textContent = target.toLocaleString();
-                }
-            }
-            
-            requestAnimationFrame(updateCounter);
-        });
-    }
-
-    // Parallax effect for hero section
-    function parallaxEffect() {
-        const hero = document.querySelector('.hero');
-        if (hero) {
-            const scrollPosition = window.pageYOffset;
-            hero.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
-        }
-    }
-
-    // Initialize animations
-    function init() {
-        updateHeader();
-        highlightNavOnScroll();
-        animateOnScroll();
-        
-        // Initial call for animations
-        setTimeout(animateOnScroll, 100);
-    }
-
-    // Call on initial load
-    init();
-
-    // Add scroll event listeners
-    window.addEventListener('scroll', () => {
-        updateHeader();
-        highlightNavOnScroll();
-        animateOnScroll();
-        parallaxEffect();
-    });
-
-    // Add resize event listener
-    window.addEventListener('resize', () => {
-        highlightNavOnScroll();
-    });
-
-    // Add CSS class for project cards to enable animations
-    projectCards.forEach(card => {
-        card.classList.add('fade-in');
-    });
-    
-    // Add CSS class for skill items to enable animations
-    skillItems.forEach(skill => {
-        skill.classList.add('fade-in');
-    });
-
-    // Type effect for hero title
-    function typeEffect(element, text, speed = 50) {
-        if (!element) return;
-        
-        let i = 0;
-        element.innerHTML = '';
-        
-        const typing = setInterval(() => {
-            if (i < text.length) {
-                element.innerHTML += text.charAt(i);
-                i++;
-            } else {
-                clearInterval(typing);
-            }
-        }, speed);
-    }
-
-    // Uncomment to enable typing effect
-    // const heroTitle = document.querySelector('.hero-content h1 span');
-    // if (heroTitle) {
-    //     const originalText = heroTitle.textContent;
-    //     typeEffect(heroTitle, originalText);
-    // }
-
-    // Project filter functionality (if you add it later)
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    if (filterBtns.length > 0) {
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const filter = btn.getAttribute('data-filter');
-                
-                // Remove active class from all buttons
-                filterBtns.forEach(b => b.classList.remove('active'));
-                
-                // Add active class to clicked button
-                btn.classList.add('active');
-                
-                // Filter projects
-                projectCards.forEach(card => {
-                    const category = card.getAttribute('data-category');
-                    
-                    if (filter === 'all' || category === filter) {
-                        card.style.display = 'block';
-                        setTimeout(() => {
-                            card.classList.add('show');
-                        }, 100);
-                    } else {
-                        card.classList.remove('show');
-                        setTimeout(() => {
-                            card.style.display = 'none';
-                        }, 300);
-                    }
-                });
-            });
-        });
-    }
-
     // Counter animation
     const counters = document.querySelectorAll('.counter');
-    let counted = false;
-
+    
     function startCounters() {
-        if (counted) return;
-        
         counters.forEach(counter => {
             const target = parseInt(counter.getAttribute('data-target'));
             const duration = 2000; // animation duration in ms
@@ -319,41 +182,41 @@ document.addEventListener('DOMContentLoaded', () => {
             
             updateCount();
         });
-        
-        counted = true;
     }
 
     // Intersection Observer to trigger counter animation when in view
-    const options = {
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
+    const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 startCounters();
-            }
-        });
-    }, options);
-
-    // Observe both stats sections
-    const aboutStats = document.querySelector('.about-stats');
-    const statsSection = document.querySelector('.stats-section');
-    
-    if (aboutStats) observer.observe(aboutStats);
-    if (statsSection) observer.observe(statsSection);
-
-    // Fade-in animation for elements
-    const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                fadeObserver.unobserve(entry.target);
+                statsObserver.disconnect(); // Only trigger once
             }
         });
     }, { threshold: 0.1 });
+
+    const statsSection = document.querySelector('.stats-section');
+    const aboutStats = document.querySelector('.about-stats');
     
-    fadeElements.forEach(element => {
-        fadeObserver.observe(element);
+    if (statsSection) statsObserver.observe(statsSection);
+    if (aboutStats) statsObserver.observe(aboutStats);
+
+    // Initialize
+    function init() {
+        updateHeader();
+        highlightNavOnScroll();
+    }
+
+    // Call on initial load
+    init();
+
+    // Add scroll event listeners
+    window.addEventListener('scroll', () => {
+        updateHeader();
+        highlightNavOnScroll();
+    });
+
+    // Add resize event listener
+    window.addEventListener('resize', () => {
+        highlightNavOnScroll();
     });
 }); 
