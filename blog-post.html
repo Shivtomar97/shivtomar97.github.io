@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Scalable Data Pipelines | Shiv Tomar - Data Engineer & Analyst</title>
+    <meta name="description" content="Insights on building scalable data pipelines with best practices and pitfalls to avoid by Shiv Tomar">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Shiv Tomar</div>
+            <ul class="nav-links">
+                <li><a href="index.html#about-me">About</a></li>
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="index.html#education">Education</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="resume.html" class="btn">Resume</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="blog-post-hero">
+            <div class="container">
+                <div class="post-meta">
+                    <span class="post-date">April 15, 2023</span>
+                    <span class="post-category">Data Engineering</span>
+                </div>
+                <h1>Building Scalable Data Pipelines: Best Practices and Pitfalls</h1>
+                <div class="post-author">
+                    <img src="assets/profile-image.jpg" alt="Shiv Tomar" class="author-image">
+                    <div class="author-info">
+                        <p class="author-name">Shiv Tomar</p>
+                        <p class="author-title">Data Engineer & Analyst</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog-post-content">
+            <div class="container">
+                <div class="post-grid">
+                    <article class="post-main">
+                        <img src="assets/blog-post-1.jpg" alt="Data Pipeline Architecture" class="featured-image">
+                        
+                        <div class="post-text">
+                            <h2>Introduction</h2>
+                            <p>As organizations continue to collect more data, the need for robust and scalable data pipelines becomes increasingly critical. Building data pipelines that can handle growing data volumes without requiring constant redesign is essential for modern businesses. In this article, I'll share insights from my experience building scalable ETL (Extract, Transform, Load) processes.</p>
+                            
+                            <h2>What Makes a Data Pipeline Scalable?</h2>
+                            <p>A scalable data pipeline is one that can handle increasing data volumes without significant performance degradation or architectural changes. Key attributes include:</p>
+                            
+                            <ul>
+                                <li><strong>Horizontal Scalability:</strong> The ability to add more processing power by adding more machines rather than upgrading existing ones.</li>
+                                <li><strong>Fault Tolerance:</strong> The ability to recover from failures without data loss.</li>
+                                <li><strong>Modularity:</strong> Components that can be updated independently.</li>
+                                <li><strong>Monitoring and Observability:</strong> Easy visibility into pipeline performance and issues.</li>
+                                <li><strong>Resource Efficiency:</strong> Appropriate utilization of computing resources.</li>
+                            </ul>
+                            
+                            <h2>Best Practices for Scalable Data Pipelines</h2>
+                            
+                            <h3>1. Design for Parallelization</h3>
+                            <p>Breaking down processing into parallel tasks dramatically improves scalability. This can be achieved through:</p>
+                            <ul>
+                                <li>Partitioning data by date, ID ranges, or other natural divisions</li>
+                                <li>Implementing map-reduce patterns</li>
+                                <li>Using distributed processing frameworks like Apache Spark or Apache Flink</li>
+                            </ul>
+                            
+                            <p>For example, instead of processing a full day's data in one job, consider breaking it into hourly batches that can be processed simultaneously.</p>
+                            
+                            <h3>2. Implement Backpressure Mechanisms</h3>
+                            <p>When processing streams of data, ensure that fast producers don't overwhelm slow consumers. Backpressure mechanisms like buffering with sensible limits, throttling, or load shedding can prevent system crashes under high load.</p>
+                            
+                            <h3>3. Use Schema Evolution Strategies</h3>
+                            <p>Data schemas change over time. Implement strategies like schema versioning, backward compatibility checks, and careful migration plans to handle these changes without breaking your pipelines.</p>
+                            
+                            <h3>4. Decouple Components with Message Queues</h3>
+                            <p>Using message queues or streaming platforms (like Apache Kafka or Amazon SQS) between pipeline stages creates buffer zones that can handle varying processing speeds and provide fault isolation.</p>
+                            
+                            <h3>5. Implement Idempotent Operations</h3>
+                            <p>Design transformations to be idempotent—running them multiple times produces the same result. This simplifies error recovery, as you can safely retry operations without duplicating effects.</p>
+                            
+                            <h2>Common Pitfalls to Avoid</h2>
+                            
+                            <h3>1. Ignoring Data Skew</h3>
+                            <p>Data skew—where certain partitions have significantly more data than others—can cause bottlenecks in distributed systems. Identify potential skew early and implement strategies like salting or custom partitioning to distribute workloads more evenly.</p>
+                            
+                            <h3>2. Neglecting Incremental Processing</h3>
+                            <p>Reprocessing all historical data when only a small portion has changed is inefficient. Implement incremental processing patterns to handle only what's new or changed.</p>
+                            
+                            <h3>3. Premature Optimization</h3>
+                            <p>Building overly complex systems before they're needed creates unnecessary maintenance burdens. Start with simpler designs and optimize based on actual performance data and scaling requirements.</p>
+                            
+                            <h3>4. Insufficient Monitoring</h3>
+                            <p>Without proper monitoring, scaling issues can go undetected until they cause failures. Implement comprehensive monitoring covering data volumes, processing times, error rates, and resource utilization.</p>
+                            
+                            <h3>5. Using Inappropriate Technologies</h3>
+                            <p>Not every problem requires big data solutions. Sometimes traditional databases or batch processing are more appropriate than streaming architectures or distributed computing.</p>
+                            
+                            <h2>Real-World Example: Scaling Daily Reporting Pipeline</h2>
+                            <p>In one of my previous roles, we faced challenges with a reporting pipeline that processed daily user activity data. As the user base grew from thousands to millions, our initial monolithic pipeline began to fail regularly.</p>
+                            
+                            <p>Our solution involved:</p>
+                            <ul>
+                                <li>Partitioning data by user cohorts and processing them in parallel</li>
+                                <li>Migrating from SQL-based transformations to Apache Spark</li>
+                                <li>Implementing incremental processing to avoid full recomputation</li>
+                                <li>Setting up comprehensive monitoring with alerts for performance degradation</li>
+                            </ul>
+                            
+                            <p>This redesign allowed the pipeline to scale seamlessly as the company continued to grow, reducing processing time by 70% while handling 5x more data.</p>
+                            
+                            <h2>Conclusion</h2>
+                            <p>Building scalable data pipelines requires thoughtful architecture, appropriate technology choices, and continuous refinement based on operational feedback. By following these best practices and avoiding common pitfalls, you can create data infrastructure that grows with your organization's needs without requiring constant redesign.</p>
+                            
+                            <p>Remember that scalability is a journey, not a destination. Regular review and iterative improvement of your data pipelines will ensure they continue to meet your evolving needs.</p>
+                            
+                            <div class="post-tags">
+                                <span class="tag">Data Engineering</span>
+                                <span class="tag">ETL</span>
+                                <span class="tag">Scalability</span>
+                                <span class="tag">Big Data</span>
+                            </div>
+                            
+                            <div class="post-share">
+                                <p>Share this article:</p>
+                                <div class="social-share">
+                                    <a href="#" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="#" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" aria-label="Share via Email"><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="post-navigation">
+                            <a href="#" class="prev-post">
+                                <i class="fas fa-arrow-left"></i>
+                                <span>Previous Post</span>
+                                <p>AWS vs Azure for Data Processing</p>
+                            </a>
+                            <a href="#" class="next-post">
+                                <span>Next Post</span>
+                                <i class="fas fa-arrow-right"></i>
+                                <p>Effective Data Visualization Techniques</p>
+                            </a>
+                        </div>
+                        
+                        <div class="comments-section">
+                            <h2>Comments (3)</h2>
+                            
+                            <div class="comment">
+                                <div class="comment-author">
+                                    <img src="assets/comment-avatar-1.jpg" alt="User Avatar">
+                                    <div class="author-info">
+                                        <h4>Alex Johnson</h4>
+                                        <span class="comment-date">April 16, 2023</span>
+                                    </div>
+                                </div>
+                                <div class="comment-content">
+                                    <p>Great article! I especially appreciate the section on idempotent operations. We've implemented this approach in our pipelines and it's made our recovery processes much more robust.</p>
+                                    <div class="comment-actions">
+                                        <a href="#">Reply</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="comment">
+                                <div class="comment-author">
+                                    <img src="assets/comment-avatar-2.jpg" alt="User Avatar">
+                                    <div class="author-info">
+                                        <h4>Sarah Martinez</h4>
+                                        <span class="comment-date">April 17, 2023</span>
+                                    </div>
+                                </div>
+                                <div class="comment-content">
+                                    <p>Do you have any recommendations for monitoring tools specifically designed for data pipelines? We're currently using a mix of custom solutions and it's becoming unwieldy.</p>
+                                    <div class="comment-actions">
+                                        <a href="#">Reply</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="comment comment-reply">
+                                <div class="comment-author">
+                                    <img src="assets/profile-image.jpg" alt="Shiv Tomar">
+                                    <div class="author-info">
+                                        <h4>Shiv Tomar</h4>
+                                        <span class="comment-date">April 17, 2023</span>
+                                    </div>
+                                </div>
+                                <div class="comment-content">
+                                    <p>@Sarah - Great question! For comprehensive pipeline monitoring, I've had success with Datadog and Prometheus+Grafana for metrics, combined with OpenLineage for lineage tracking. If you're on AWS, CloudWatch with custom dashboards works well too.</p>
+                                    <div class="comment-actions">
+                                        <a href="#">Reply</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="comment-form">
+                                <h3>Leave a Comment</h3>
+                                <form>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type="text" id="name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" id="email" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="comment">Comment</label>
+                                        <textarea id="comment" rows="5" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn primary">Post Comment</button>
+                                </form>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <aside class="post-sidebar">
+                        <div class="sidebar-widget author-widget">
+                            <h3>About the Author</h3>
+                            <div class="author-bio">
+                                <img src="assets/profile-image.jpg" alt="Shiv Tomar">
+                                <h4>Shiv Tomar</h4>
+                                <p>Data Engineer & Analyst with 5+ years of experience building scalable data solutions for various industries.</p>
+                                <div class="author-social">
+                                    <a href="https://github.com/Shivtomar97" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                                    <a href="https://linkedin.com/in/shivtomar" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                                    <a href="mailto:shivtomarwork@gmail.com" aria-label="Email Me"><i class="fas fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="sidebar-widget">
+                            <h3>Recent Posts</h3>
+                            <ul class="recent-posts">
+                                <li>
+                                    <a href="blog-post.html" class="active">Building Scalable Data Pipelines</a>
+                                    <span class="post-date">April 15, 2023</span>
+                                </li>
+                                <li>
+                                    <a href="blog-post.html">Effective Data Visualization Techniques</a>
+                                    <span class="post-date">March 22, 2023</span>
+                                </li>
+                                <li>
+                                    <a href="blog-post.html">Practical Applications of Machine Learning</a>
+                                    <span class="post-date">February 8, 2023</span>
+                                </li>
+                                <li>
+                                    <a href="blog-post.html">AWS vs Azure for Data Processing</a>
+                                    <span class="post-date">January 17, 2023</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="sidebar-widget">
+                            <h3>Categories</h3>
+                            <ul class="category-list">
+                                <li><a href="#">Data Engineering <span>(5)</span></a></li>
+                                <li><a href="#">Data Analytics <span>(3)</span></a></li>
+                                <li><a href="#">Machine Learning <span>(2)</span></a></li>
+                                <li><a href="#">Cloud Computing <span>(4)</span></a></li>
+                                <li><a href="#">Career Insights <span>(2)</span></a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="sidebar-widget">
+                            <h3>Subscribe</h3>
+                            <p>Get notified when I publish new articles</p>
+                            <form class="subscribe-form">
+                                <input type="email" placeholder="Your email address" required>
+                                <button type="submit" class="btn primary">Subscribe</button>
+                            </form>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Shiv Tomar</div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="index.html#about-me">About</a></li>
+                        <li><a href="index.html#experience">Experience</a></li>
+                        <li><a href="index.html#projects">Projects</a></li>
+                        <li><a href="index.html#skills">Skills</a></li>
+                        <li><a href="index.html#testimonials">Testimonials</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="social-icons">
+                    <a href="https://github.com/Shivtomar97" target="_blank" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/shivtomar" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:shivtomarwork@gmail.com" aria-label="Email Me"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2025 Shiv Tomar. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    
+    <!-- Google Analytics (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+</body>
+</html> 
