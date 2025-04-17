@@ -291,4 +291,69 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // Counter animation
+    const counters = document.querySelectorAll('.counter');
+    let counted = false;
+
+    function startCounters() {
+        if (counted) return;
+        
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const duration = 2000; // animation duration in ms
+            const start = 0;
+            const increment = target / (duration / 16); // 60fps
+            
+            let current = start;
+            const updateCount = () => {
+                current += increment;
+                
+                if (current < target) {
+                    counter.textContent = Math.ceil(current);
+                    requestAnimationFrame(updateCount);
+                } else {
+                    counter.textContent = target;
+                }
+            };
+            
+            updateCount();
+        });
+        
+        counted = true;
+    }
+
+    // Intersection Observer to trigger counter animation when in view
+    const options = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                startCounters();
+            }
+        });
+    }, options);
+
+    // Observe both stats sections
+    const aboutStats = document.querySelector('.about-stats');
+    const statsSection = document.querySelector('.stats-section');
+    
+    if (aboutStats) observer.observe(aboutStats);
+    if (statsSection) observer.observe(statsSection);
+
+    // Fade-in animation for elements
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                fadeObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    fadeElements.forEach(element => {
+        fadeObserver.observe(element);
+    });
 }); 

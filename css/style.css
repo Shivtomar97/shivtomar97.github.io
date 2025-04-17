@@ -942,7 +942,7 @@ footer .social-icons a:hover {
     transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.fade-in.show {
+.fade-in.visible {
     opacity: 1;
     transform: translateY(0);
 }
@@ -1751,4 +1751,72 @@ footer .social-icons a:hover {
 .placeholder-data-quality { background: linear-gradient(135deg, #6a3093, #a044ff); }
 .placeholder-migration { background: linear-gradient(135deg, #1565c0, #007cc0); }
 .placeholder-hospital { background: linear-gradient(135deg, #43cea2, #185a9d); }
-.placeholder-prototyping { background: linear-gradient(135deg, #ff8c00, #ff5307); } 
+.placeholder-prototyping { background: linear-gradient(135deg, #ff8c00, #ff5307); }
+
+/* Tooltips */
+.stat {
+    position: relative;
+    cursor: pointer;
+}
+
+.stat:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 10;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.stat-tooltip {
+    display: none;
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    width: max-content;
+    max-width: 200px;
+    text-align: center;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.stat-item {
+    position: relative;
+}
+
+.stat-item:hover .stat-tooltip {
+    display: block;
+    opacity: 1;
+}
+
+/* Animation for counters */
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.counter {
+    display: inline-block;
+    animation: countUp 1s ease-out forwards;
+} 
