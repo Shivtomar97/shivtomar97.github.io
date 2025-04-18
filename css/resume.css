@@ -44,6 +44,20 @@
     font-size: 1rem;
 }
 
+.resume-actions .btn.primary {
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.resume-actions .btn.primary:hover {
+    background: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(53, 99, 233, 0.3);
+}
+
 .resume-content {
     padding: 60px 0;
     background-color: #f9fafc;
