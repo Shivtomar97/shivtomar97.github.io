@@ -1910,4 +1910,238 @@ footer .social-icons a:hover {
 
 .about-stats .stat span {
     transition: transform 0.3s, color 0.3s;
+}
+
+/* Company Logo Timeline */
+.company-logo-timeline {
+    margin: 6rem 0;
+    padding: 3rem 0;
+    position: relative;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8));
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.logo-timeline-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 50%;
+    left: calc(50px + 2rem);
+    right: calc(50px + 2rem);
+    height: 3px;
+    background: linear-gradient(90deg, 
+        var(--primary-color) 0%, 
+        var(--accent-color) 50%, 
+        var(--primary-color) 100%);
+    z-index: 1;
+    border-radius: 3px;
+    opacity: 0.3;
+}
+
+.logo-item {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 180px;
+}
+
+.logo-item:hover {
+    transform: translateY(-15px);
+}
+
+.logo-item::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(53, 99, 233, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.logo-item:hover::after {
+    opacity: 1;
+}
+
+.timeline-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 20px;
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    border: 2px solid transparent;
+}
+
+.logo-item:hover .timeline-logo {
+    box-shadow: 0 15px 35px rgba(53, 99, 233, 0.2);
+    border-color: var(--primary-color);
+}
+
+.logo-item.current .timeline-logo {
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+    box-shadow: 0 15px 35px rgba(53, 99, 233, 0.25);
+}
+
+.company-year {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-color);
+    padding: 0.5rem 1.2rem;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.job-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--dark-color);
+    max-width: 160px;
+    line-height: 1.3;
+    margin-top: -0.5rem;
+    transition: all 0.3s ease;
+    opacity: 0.85;
+}
+
+.logo-item:hover .job-title {
+    color: var(--primary-color);
+    opacity: 1;
+}
+
+/* Responsive adjustments for job titles */
+@media (max-width: 768px) {
+    .logo-timeline-container {
+        flex-direction: column;
+        gap: 3rem;
+        padding: 2rem;
+        align-items: flex-start;
+    }
+
+    .timeline-line {
+        width: 3px;
+        height: calc(100% - 200px);
+        left: 60px;
+        top: 100px;
+        transform: translateX(-50%);
+        background: linear-gradient(180deg, 
+            var(--primary-color) 0%, 
+            var(--accent-color) 50%, 
+            var(--primary-color) 100%);
+    }
+
+    .logo-item {
+        width: auto;
+        margin-left: 2rem;
+        align-items: flex-start;
+    }
+
+    .job-title {
+        text-align: left;
+        margin-left: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .company-logo-timeline {
+        margin: 3rem 0;
+    }
+
+    .timeline-logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .company-year {
+        font-size: 0.9rem;
+        padding: 0.4rem 1rem;
+    }
+}
+
+/* Timeline Header with Logo */
+.timeline-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.timeline-company-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: white;
+    padding: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover .timeline-company-logo {
+    transform: scale(1.05);
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 20px rgba(53, 99, 233, 0.15);
+}
+
+.timeline-header-content {
+    flex: 1;
+}
+
+.timeline-header-content h3 {
+    margin-bottom: 0.3rem;
+}
+
+.timeline-header-content h4 {
+    margin-bottom: 0.3rem;
+}
+
+.timeline-header-content .date {
+    margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .timeline-header {
+        gap: 1rem;
+    }
+
+    .timeline-company-logo {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .timeline-company-logo {
+        margin-bottom: 1rem;
+    }
 } 
