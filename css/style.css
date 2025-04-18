@@ -435,6 +435,34 @@ main {
     font-size: 0.85rem;
 }
 
+.company-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.company-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.company-logo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.timeline-content h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
 /* Projects Section */
 .projects-grid {
     display: grid;
@@ -1059,6 +1087,19 @@ footer .social-icons a:hover {
     
     .projects-grid {
         grid-template-columns: 1fr;
+    }
+
+    .company-header {
+        gap: 0.75rem;
+    }
+    
+    .company-logo {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .timeline-content h4 {
+        font-size: 1rem;
     }
 }
 
