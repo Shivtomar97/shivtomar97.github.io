@@ -11,12 +11,24 @@
     --resume-shadow: rgba(0, 0, 0, 0.1);
 }
 
+/* Header Override */
+header, nav {
+    background-color: var(--bg-color) !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+nav .nav-links a {
+    color: var(--text-color) !important;
+}
+
 /* Main Resume Layout */
 .resume-header {
-    background: linear-gradient(135deg, var(--resume-gradient-start), var(--resume-gradient-end));
-    color: white;
+    background: white;
+    color: var(--resume-text);
     padding: 120px 0 50px;
     text-align: center;
+    margin-top: 0;
+    border-bottom: 1px solid var(--resume-border);
 }
 
 .resume-header-content h1 {
@@ -24,13 +36,14 @@
     font-weight: 700;
     margin-bottom: 15px;
     letter-spacing: -0.5px;
+    color: var(--resume-primary);
 }
 
 .resume-header-content p {
     font-size: 1.2rem;
     max-width: 600px;
     margin: 0 auto 30px;
-    opacity: 0.9;
+    color: var(--resume-light-text);
 }
 
 .resume-actions {
@@ -45,7 +58,7 @@
 }
 
 .resume-actions .btn.primary {
-    background: var(--primary-color);
+    background: var(--resume-primary);
     color: white;
     padding: 1rem 2rem;
     font-size: 1.1rem;
@@ -53,9 +66,9 @@
 }
 
 .resume-actions .btn.primary:hover {
-    background: var(--secondary-color);
+    background: var(--resume-hover);
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(53, 99, 233, 0.3);
+    box-shadow: 0 5px 15px rgba(65, 105, 225, 0.3);
 }
 
 .resume-content {
