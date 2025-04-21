@@ -13,12 +13,20 @@
 
 /* Header Override */
 header, nav {
-    background-color: var(--bg-color) !important;
+    background-color: white !important;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1) !important;
 }
 
 nav .nav-links a {
     color: var(--text-color) !important;
+}
+
+/* Ensure resume button is visible */
+nav .nav-links a.btn,
+nav .nav-links a.btn.active {
+    background-color: var(--resume-primary) !important;
+    color: white !important;
+    font-weight: 500;
 }
 
 /* Main Resume Layout */
