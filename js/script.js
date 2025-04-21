@@ -1,34 +1,14 @@
 // DOM Elements
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('header');
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    const navItems = document.querySelectorAll('.nav-links a');
     const sections = document.querySelectorAll('section[id]');
+    const navItems = document.querySelectorAll('.nav-links a');
     const contactForm = document.querySelector('.contact-form');
     const timelineItems = document.querySelectorAll('.timeline-item');
     const projectCards = document.querySelectorAll('.project-card');
     const skillCategories = document.querySelectorAll('.skill-category');
     const skillItems = document.querySelectorAll('.skills-list span');
     const fadeElements = document.querySelectorAll('.fade-in');
-
-    // Mobile Navigation Toggle
-    if (hamburger && navLinks) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
-            document.body.classList.toggle('no-scroll');
-        });
-
-        // Close mobile menu when clicking on a nav link
-        navItems.forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-            });
-        });
-    }
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
