@@ -2306,14 +2306,14 @@ footer .social-icons a:hover {
     position: relative;
     max-width: 1000px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 60px;  /* Increased padding to accommodate logos */
 }
 
 .timeline-line {
     position: absolute;
-    top: 50%;
-    left: calc(50px + 2rem);
-    right: calc(50px + 2rem);
+    top: 50px;
+    left: 120px;  /* Start line from behind first logo */
+    right: 120px; /* End line behind last logo */
     height: 3px;
     background: linear-gradient(90deg, 
         var(--primary-color) 0%, 
@@ -2334,6 +2334,20 @@ footer .social-icons a:hover {
     align-items: center;
     gap: 1rem;
     width: 180px;
+}
+
+.timeline-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 20px;
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    border: 2px solid transparent;
+    position: relative;
+    z-index: 3;  /* Ensure logos stay above the line */
 }
 
 .logo-item:hover {
@@ -2357,29 +2371,6 @@ footer .social-icons a:hover {
 
 .logo-item:hover::after {
     opacity: 1;
-}
-
-.timeline-logo {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    border-radius: 20px;
-    background: white;
-    padding: 1rem;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s ease;
-    border: 2px solid transparent;
-}
-
-.logo-item:hover .timeline-logo {
-    box-shadow: 0 15px 35px rgba(53, 99, 233, 0.2);
-    border-color: var(--primary-color);
-}
-
-.logo-item.current .timeline-logo {
-    border-color: var(--primary-color);
-    transform: scale(1.1);
-    box-shadow: 0 15px 35px rgba(53, 99, 233, 0.25);
 }
 
 .company-year {
@@ -2990,4 +2981,27 @@ footer .social-icons a:hover {
     body.no-scroll {
         overflow: hidden;
     }
+}
+
+.logo-item.current .timeline-logo {
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+    box-shadow: 0 15px 35px rgba(53, 99, 233, 0.25);
+}
+
+.logo-item.current .job-title {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.logo-item.current .company-year {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(53, 99, 233, 0.2);
+}
+
+.logo-item:hover .timeline-logo {
+    box-shadow: 0 15px 35px rgba(53, 99, 233, 0.2);
+    border-color: var(--primary-color);
 }
