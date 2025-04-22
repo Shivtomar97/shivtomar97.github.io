@@ -3005,3 +3005,8 @@ footer .social-icons a:hover {
     box-shadow: 0 15px 35px rgba(53, 99, 233, 0.2);
     border-color: var(--primary-color);
 }
+
+/* Netlify Form Honeypot */
+.hidden {
+    display: none !important;
+}

@@ -97,45 +97,42 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle contact form submission
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Don't prevent default - let Netlify handle form submission
+            // e.preventDefault();
             
-            // For demonstration purposes - in a real implementation, you would send data to a server
-            const formData = new FormData(this);
-            const formValues = Object.fromEntries(formData);
-            
-            console.log('Form data:', formValues);
-            
-            // Simulate form submission
+            // Update button state on submission
             const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            
+            const originalText = submitBtn.innerHTML;
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             
-            setTimeout(() => {
-                // Show success message
-                const successMessage = document.createElement('div');
-                successMessage.className = 'success-message';
-                successMessage.innerHTML = '<i class="fas fa-check-circle"></i> Thank you for your message! I will get back to you soon.';
-                
-                contactForm.appendChild(successMessage);
-                contactForm.reset();
-                
-                setTimeout(() => {
-                    successMessage.classList.add('show');
-                }, 10);
-                
-                setTimeout(() => {
-                    successMessage.classList.remove('show');
-                    setTimeout(() => {
-                        successMessage.remove();
-                    }, 300);
-                }, 5000);
-                
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-            }, 2000);
+            // We'll still show a success message,
+            // but Netlify will handle the actual form submission
+            
+            // Additional form analytics or tracking could go here
         });
+        
+        // Listen for form submission result
+        // This will run when the user returns from the Netlify submission page
+        // or if using AJAX submission mode
+        if (window.location.search.includes('submission=success') || 
+            window.location.hash === '#success') {
+            
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.className = 'success-message show';
+            successMessage.innerHTML = '<i class="fas fa-check-circle"></i> Thank you for your message! I will get back to you soon.';
+            
+            contactForm.appendChild(successMessage);
+            contactForm.reset();
+            
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+                setTimeout(() => {
+                    successMessage.remove();
+                }, 300);
+            }, 5000);
+        }
     }
 
     // Counter animation
