@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 { value: '100%', label: 'Compliance rate' }
             ],
             techStack: [
-                'Python', 'Airflow', 'Great Expectations', 'AWS S3', 'Snowflake', 'Tableau', 'Data Quality', 'Healthcare'
+                'Python', 'Airflow', 'AWS S3', 'Snowflake', 'Tableau', 'Data Quality', 'Healthcare'
             ],
             problem: 'Healthcare data submissions to regulatory bodies were error-prone, requiring extensive manual verification and risking costly compliance violations.',
             solution: 'Built a comprehensive data validation pipeline with automated DAG tracking to ensure quality, completeness, and timeliness of regulatory submissions.',
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 { value: '0', label: 'Data loss incidents' }
             ],
             techStack: [
-                'Python', 'AWS Glue', 'S3', 'DynamoDB', 'Lambda', 'Step Functions', 'Terraform', 'AWS', 'Data Migration'
+                'Python', 'AWS Glue', 'S3', 'DynamoDB', 'Lambda', 'Step Functions', 'AWS', 'Data Migration'
             ],
             problem: 'Legacy on-premise data warehouses were costly to maintain, difficult to scale, and lacked modern features needed for advanced analytics.',
             solution: 'Architected a comprehensive migration framework with automated validation, reconciliation, and rollback capabilities to safely transfer petabyte-scale data to AWS.',
@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 { value: '4hrs', label: 'To emergency response' }
             ],
             techStack: [
-                'Python', 'Flask', 'D3.js', 'PostgreSQL', 'Redis', 'Docker', 'AWS EC2', 'Healthcare', 'Supply Chain', 'Data Visualization'
+                'Python', 'Flask', 'PostgreSQL', 'AWS EC2', 'Healthcare', 'Supply Chain', 'Data Visualization'
             ],
             problem: 'Hospital network lacked real-time visibility into supply chain status, leading to overstock of some items and critical shortages of others.',
             solution: 'Developed an interactive dashboard that visualized inventory levels, predicted stockouts, and optimized procurement across multiple hospital facilities.',
@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 { value: '5x', label: 'ROI on prototyping investment' }
             ],
             techStack: [
-                'React', 'Node.js', 'Python', 'Flask', 'AWS', 'Firebase', 'MongoDB', 'Prototyping', 'Full-Stack', 'Healthcare'
+                'React', 'Node.js', 'Python', 'Flask', 'AWS', 'MongoDB', 'Prototyping', 'Full-Stack', 'Healthcare'
             ],
             problem: 'Traditional development cycles were too slow to validate market fit for new product ideas, resulting in wasted development resources.',
             solution: 'Established a lean prototyping team that rapidly built MVPs using modern tools like React, AWS serverless, and Python to validate product concepts before full investment.',
